@@ -73,176 +73,176 @@ describe SimpleTimesController do
     end
   
   end
-  # 
-  # 
-  # describe 'GET /new' do
-  #   
-  #   before do
-  #     @simple_time = mock_model(SimpleTime)
-  #     @times_proxy.stub!(:new).and_return(@simple_time)
-  #   end
-  #   
-  #   def do_get(options = {})
-  #     get :new, options.merge(:project_id => @project.to_param)
-  #   end
-  # 
-  #   it 'should build the post' do
-  #     @times_proxy.should_receive(:new).with(nil).and_return(@simple_time)
-  #     do_get
-  #     assigns[:simple_time].should == @simple_time
-  #   end
-  # 
-  #   it "should render the template" do
-  #     do_get
-  #     response.should be_success
-  #     response.should render_template(:new)
-  #   end
-  #   
-  # end
-  # 
-  # 
-  # describe 'POST /create' do
-  #   
-  #   before do
-  #     @simple_time = mock_model(SimpleTime, :save => true)
-  #     @times_proxy.stub!(:new).and_return(@simple_time)
-  #   end
-  #   
-  #   def do_post
-  #     post :create, :simple_time => {}, :project_id => @project.to_param
-  #   end
-  # 
-  #   it 'should build the post' do
-  #     @times_proxy.should_receive(:new).with({}).and_return(@simple_time)
-  #     do_post
-  #     assigns[:simple_time].should == @simple_time
-  #   end
-  #   
-  #   describe 'when save is successful' do
-  #     
-  #     before do
-  #       @simple_time.should_receive(:save).with().and_return(true)
-  #     end      
-  # 
-  #     it 'should redirect to show' do
-  #       do_post
-  #       response.should redirect_to(project_blog_post_path(@project, @simple_time))
-  #     end
-  # 
-  #   end
-  # 
-  #   describe 'when save is NOT successful' do
-  # 
-  #     before do
-  #       @simple_time.should_receive(:save).and_return(false)        
-  #     end      
-  # 
-  #     it "should render the new screen" do
-  #       do_post
-  #       response.should be_success
-  #       response.should render_template(:new)
-  #     end      
-  #     
-  #   end
-  #   
-  # end
-  # 
-  # 
-  # describe 'GET /edit' do
-  #   
-  #   before do
-  #     @simple_time = mock_model(SimpleTime)
-  #     @times_proxy.stub!(:find).and_return(@simple_time)
-  #   end
-  #   
-  #   def do_get(options = {})
-  #     get :edit, options.merge(:id => '1', :project_id => @project.to_param)
-  #   end
-  # 
-  #   it 'should load the post' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
-  #     do_get
-  #     assigns[:simple_time].should == @simple_time
-  #   end
-  # 
-  #   it "should render the template" do
-  #     do_get
-  #     response.should be_success
-  #     response.should render_template(:edit)
-  #   end      
-  #   
-  # end
-  # 
-  # 
-  # describe 'PUT /update' do
-  #   
-  #   before do
-  #     @simple_time = mock_model(SimpleTime, :update_attributes => true)
-  #     @times_proxy.stub!(:find).and_return(@simple_time)
-  #   end
-  #   
-  #   def do_put
-  #     put :update, :id => '1', :simple_time => {}, :project_id => @project.to_param
-  #   end
-  # 
-  #   it 'should load the post' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
-  #     do_put
-  #     assigns[:simple_time].should == @simple_time
-  #   end
-  # 
-  #   describe 'when update is successful' do
-  #     
-  #     it 'should redirect to show' do
-  #       @simple_time.should_receive(:update_attributes).with({}).and_return(true)        
-  #       do_put
-  #       response.should redirect_to(project_blog_post_path(@project, @simple_time))
-  #     end
-  #           
-  #   end
-  # 
-  #   describe 'when update is NOT successful' do
-  # 
-  #     it "should render the edit screen" do
-  #       @simple_time.should_receive(:update_attributes).with({}).and_return(false)        
-  #       do_put
-  #       response.should be_success
-  #       response.should render_template(:edit)
-  #     end      
-  # 
-  #   end
-  #   
-  # end
-  # 
-  # 
-  # describe 'DELETE /destroy' do
-  #   
-  #   before do
-  #     @simple_time = mock_model(SimpleTime, :destroy => true)
-  #     @times_proxy.stub!(:find).and_return(@simple_time)
-  #   end
-  #   
-  #   def do_delete
-  #     delete :destroy, :id => '1', :project_id => @project.to_param
-  #   end
-  # 
-  #   it 'should load the page' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
-  #     do_delete
-  #     assigns[:simple_time].should == @simple_time
-  #   end
-  # 
-  #   it "should delete the record" do
-  #     @simple_time.should_receive(:destroy).and_return(true)
-  #     do_delete
-  #   end
-  # 
-  #   it 'should redirect to index page' do
-  #     do_delete
-  #     response.should redirect_to(project_simple_times_path(@project))
-  #   end
-  #   
-  # end
+  
+  
+  describe 'GET /new' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime)
+      @times_proxy.stub!(:new).and_return(@simple_time)
+    end
+    
+    def do_get(options = {})
+      get :new, options.merge(:project_id => @project.to_param)
+    end
+  
+    it 'should build the time' do
+      @times_proxy.should_receive(:new).with(nil).and_return(@simple_time)
+      do_get
+      assigns[:simple_time].should == @simple_time
+    end
+  
+    it "should render the template" do
+      do_get
+      response.should be_success
+      response.should render_template(:new)
+    end
+    
+  end
+  
+  
+  describe 'POST /create' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime, :save => true)
+      @times_proxy.stub!(:new).and_return(@simple_time)
+    end
+    
+    def do_post
+      post :create, :simple_time => {}, :project_id => @project.to_param
+    end
+  
+    it 'should build the time' do
+      @times_proxy.should_receive(:new).with({}).and_return(@simple_time)
+      do_post
+      assigns[:simple_time].should == @simple_time
+    end
+    
+    describe 'when save is successful' do
+      
+      before do
+        @simple_time.should_receive(:save).with().and_return(true)
+      end      
+  
+      it 'should redirect to index' do
+        do_post
+        response.should redirect_to(project_simple_times_path(@project))
+      end
+  
+    end
+  
+    describe 'when save is NOT successful' do
+  
+      before do
+        @simple_time.should_receive(:save).and_return(false)        
+      end      
+  
+      it "should render the new screen" do
+        do_post
+        response.should be_success
+        response.should render_template(:new)
+      end      
+      
+    end
+    
+  end
+  
+  
+  describe 'GET /edit' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime)
+      @times_proxy.stub!(:find).and_return(@simple_time)
+    end
+    
+    def do_get(options = {})
+      get :edit, options.merge(:id => '1', :project_id => @project.to_param)
+    end
+  
+    it 'should load the post' do
+      @times_proxy.should_receive(:find).with('1', :include => [:user]).and_return(@simple_time)
+      do_get
+      assigns[:simple_time].should == @simple_time
+    end
+  
+    it "should render the template" do
+      do_get
+      response.should be_success
+      response.should render_template(:edit)
+    end      
+    
+  end
+  
+  
+  describe 'PUT /update' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime, :update_attributes => true)
+      @times_proxy.stub!(:find).and_return(@simple_time)
+    end
+    
+    def do_put
+      put :update, :id => '1', :simple_time => {}, :project_id => @project.to_param
+    end
+  
+    it 'should load the post' do
+      @times_proxy.should_receive(:find).with('1', :include => [:user]).and_return(@simple_time)
+      do_put
+      assigns[:simple_time].should == @simple_time
+    end
+  
+    describe 'when update is successful' do
+      
+      it 'should redirect to show' do
+        @simple_time.should_receive(:update_attributes).with({}).and_return(true)        
+        do_put
+        response.should redirect_to(project_simple_time_path(@project, @simple_time))
+      end
+            
+    end
+  
+    describe 'when update is NOT successful' do
+  
+      it "should render the edit screen" do
+        @simple_time.should_receive(:update_attributes).with({}).and_return(false)        
+        do_put
+        response.should be_success
+        response.should render_template(:edit)
+      end      
+  
+    end
+    
+  end
+  
+  
+  describe 'DELETE /destroy' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime, :destroy => true)
+      @times_proxy.stub!(:find).and_return(@simple_time)
+    end
+    
+    def do_delete
+      delete :destroy, :id => '1', :project_id => @project.to_param
+    end
+  
+    it 'should load the page' do
+      @times_proxy.should_receive(:find).with('1', :include => [:user]).and_return(@simple_time)
+      do_delete
+      assigns[:simple_time].should == @simple_time
+    end
+  
+    it "should delete the record" do
+      @simple_time.should_receive(:destroy).and_return(true)
+      do_delete
+    end
+  
+    it 'should redirect to index page' do
+      do_delete
+      response.should redirect_to(project_simple_times_path(@project))
+    end
+    
+  end
 
 
 end
