@@ -49,44 +49,37 @@ describe SimpleTimesController do
   end
 
 
-  # describe 'GET /show' do
-  #   
-  #   before do
-  #     @blog_post = mock_model(SimpleTime, :updated_at => 10.minutes.ago)
-  #     @comment = mock_model(BlogComment)
-  #     @comments_proxy = @blog_post.stub_association!(:comments, :new => @comment)      
-  #     @times_proxy.stub!(:find).and_return(@blog_post)
-  #   end
-  #   
-  #   def do_get(options = {})
-  #     get :show, options.merge(:id => '1', :project_id => @project.to_param)
-  #   end
-  # 
-  #   it 'should load the post' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@blog_post)
-  #     do_get
-  #     assigns[:blog_post].should == @blog_post
-  #   end
-  # 
-  #   it 'should prepare a comment' do
-  #     @comments_proxy.should_receive(:new).with(:author => 'User Name', :email => 'user@host.com').and_return(@comment)
-  #     do_get
-  #   end
-  #       
-  #   it "should render the template" do
-  #     do_get
-  #     response.should be_success
-  #     response.should render_template(:show)
-  #   end
-  # 
-  # end
+  describe 'GET /show' do
+    
+    before do
+      @simple_time = mock_model(SimpleTime, :updated_at => 10.minutes.ago)
+      @times_proxy.stub!(:find).and_return(@simple_time)
+    end
+    
+    def do_get(options = {})
+      get :show, options.merge(:id => '1', :project_id => @project.to_param)
+    end
+  
+    it 'should load the post' do
+      @times_proxy.should_receive(:find).with('1', :include => [:user]).and_return(@simple_time)
+      do_get
+      assigns[:simple_time].should == @simple_time
+    end
+  
+    it "should render the template" do
+      do_get
+      response.should be_success
+      response.should render_template(:show)
+    end
+  
+  end
   # 
   # 
   # describe 'GET /new' do
   #   
   #   before do
-  #     @blog_post = mock_model(SimpleTime)
-  #     @times_proxy.stub!(:new).and_return(@blog_post)
+  #     @simple_time = mock_model(SimpleTime)
+  #     @times_proxy.stub!(:new).and_return(@simple_time)
   #   end
   #   
   #   def do_get(options = {})
@@ -94,9 +87,9 @@ describe SimpleTimesController do
   #   end
   # 
   #   it 'should build the post' do
-  #     @times_proxy.should_receive(:new).with(nil).and_return(@blog_post)
+  #     @times_proxy.should_receive(:new).with(nil).and_return(@simple_time)
   #     do_get
-  #     assigns[:blog_post].should == @blog_post
+  #     assigns[:simple_time].should == @simple_time
   #   end
   # 
   #   it "should render the template" do
@@ -111,29 +104,29 @@ describe SimpleTimesController do
   # describe 'POST /create' do
   #   
   #   before do
-  #     @blog_post = mock_model(SimpleTime, :save => true)
-  #     @times_proxy.stub!(:new).and_return(@blog_post)
+  #     @simple_time = mock_model(SimpleTime, :save => true)
+  #     @times_proxy.stub!(:new).and_return(@simple_time)
   #   end
   #   
   #   def do_post
-  #     post :create, :blog_post => {}, :project_id => @project.to_param
+  #     post :create, :simple_time => {}, :project_id => @project.to_param
   #   end
   # 
   #   it 'should build the post' do
-  #     @times_proxy.should_receive(:new).with({}).and_return(@blog_post)
+  #     @times_proxy.should_receive(:new).with({}).and_return(@simple_time)
   #     do_post
-  #     assigns[:blog_post].should == @blog_post
+  #     assigns[:simple_time].should == @simple_time
   #   end
   #   
   #   describe 'when save is successful' do
   #     
   #     before do
-  #       @blog_post.should_receive(:save).with().and_return(true)
+  #       @simple_time.should_receive(:save).with().and_return(true)
   #     end      
   # 
   #     it 'should redirect to show' do
   #       do_post
-  #       response.should redirect_to(project_blog_post_path(@project, @blog_post))
+  #       response.should redirect_to(project_blog_post_path(@project, @simple_time))
   #     end
   # 
   #   end
@@ -141,7 +134,7 @@ describe SimpleTimesController do
   #   describe 'when save is NOT successful' do
   # 
   #     before do
-  #       @blog_post.should_receive(:save).and_return(false)        
+  #       @simple_time.should_receive(:save).and_return(false)        
   #     end      
   # 
   #     it "should render the new screen" do
@@ -158,8 +151,8 @@ describe SimpleTimesController do
   # describe 'GET /edit' do
   #   
   #   before do
-  #     @blog_post = mock_model(SimpleTime)
-  #     @times_proxy.stub!(:find).and_return(@blog_post)
+  #     @simple_time = mock_model(SimpleTime)
+  #     @times_proxy.stub!(:find).and_return(@simple_time)
   #   end
   #   
   #   def do_get(options = {})
@@ -167,9 +160,9 @@ describe SimpleTimesController do
   #   end
   # 
   #   it 'should load the post' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@blog_post)
+  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
   #     do_get
-  #     assigns[:blog_post].should == @blog_post
+  #     assigns[:simple_time].should == @simple_time
   #   end
   # 
   #   it "should render the template" do
@@ -184,26 +177,26 @@ describe SimpleTimesController do
   # describe 'PUT /update' do
   #   
   #   before do
-  #     @blog_post = mock_model(SimpleTime, :update_attributes => true)
-  #     @times_proxy.stub!(:find).and_return(@blog_post)
+  #     @simple_time = mock_model(SimpleTime, :update_attributes => true)
+  #     @times_proxy.stub!(:find).and_return(@simple_time)
   #   end
   #   
   #   def do_put
-  #     put :update, :id => '1', :blog_post => {}, :project_id => @project.to_param
+  #     put :update, :id => '1', :simple_time => {}, :project_id => @project.to_param
   #   end
   # 
   #   it 'should load the post' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@blog_post)
+  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
   #     do_put
-  #     assigns[:blog_post].should == @blog_post
+  #     assigns[:simple_time].should == @simple_time
   #   end
   # 
   #   describe 'when update is successful' do
   #     
   #     it 'should redirect to show' do
-  #       @blog_post.should_receive(:update_attributes).with({}).and_return(true)        
+  #       @simple_time.should_receive(:update_attributes).with({}).and_return(true)        
   #       do_put
-  #       response.should redirect_to(project_blog_post_path(@project, @blog_post))
+  #       response.should redirect_to(project_blog_post_path(@project, @simple_time))
   #     end
   #           
   #   end
@@ -211,7 +204,7 @@ describe SimpleTimesController do
   #   describe 'when update is NOT successful' do
   # 
   #     it "should render the edit screen" do
-  #       @blog_post.should_receive(:update_attributes).with({}).and_return(false)        
+  #       @simple_time.should_receive(:update_attributes).with({}).and_return(false)        
   #       do_put
   #       response.should be_success
   #       response.should render_template(:edit)
@@ -225,8 +218,8 @@ describe SimpleTimesController do
   # describe 'DELETE /destroy' do
   #   
   #   before do
-  #     @blog_post = mock_model(SimpleTime, :destroy => true)
-  #     @times_proxy.stub!(:find).and_return(@blog_post)
+  #     @simple_time = mock_model(SimpleTime, :destroy => true)
+  #     @times_proxy.stub!(:find).and_return(@simple_time)
   #   end
   #   
   #   def do_delete
@@ -234,13 +227,13 @@ describe SimpleTimesController do
   #   end
   # 
   #   it 'should load the page' do
-  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@blog_post)
+  #     @times_proxy.should_receive(:find).with('1', :include => [:categories, :user, :comments]).and_return(@simple_time)
   #     do_delete
-  #     assigns[:blog_post].should == @blog_post
+  #     assigns[:simple_time].should == @simple_time
   #   end
   # 
   #   it "should delete the record" do
-  #     @blog_post.should_receive(:destroy).and_return(true)
+  #     @simple_time.should_receive(:destroy).and_return(true)
   #     do_delete
   #   end
   # 
