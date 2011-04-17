@@ -1,0 +1,13 @@
+--- 
+Default: 
+  name: Default 
+  permissions: |
+    --- 
+    simple_times: 
+    - create
+    - update
+    - view
+    - comment
+    - delete
+  users: Public, agent
+  projects: retro

@@ -1,0 +1,21 @@
+<% @page_title = _('SimpleTime') + ': ' + h(@simple_time.title) -%>
+<% include_simple_times_stylesheet -%>
+<% slim_page -%>
+
+<div class="simple_times"> 
+  <% content_tag :div, :class => 'float-r actions smaller' do -%>        
+    <% if permitted?(:simple_times, :update) -%>
+      <%= link_to _('Edit'), edit_project_simple_time_path(Project.current, @simple_time) %>
+    <% end -%>
+    <% if permitted?(:simple_times, :delete) -%>
+      <%= link_to _('Delete'), project_simple_time_path(Project.current, @simple_time), options_for_destroy_link %>
+    <% end -%>
+  <% end if permitted?(:simple_times, :update) || permitted?(:simple_times, :delete) -%>
+  
+  <%= render :partial => 'time', :locals => { :time => @simple_time } %>
+  <hr class="space" />
+  <hr />
+  <%= top_link %>
+  
+</div> 
+  

@@ -1,0 +1,13 @@
+<% @page_title = _('SimpleTimes') + ' . ' + _('Create Time') -%>
+<% include_simple_times_stylesheet -%>
+<% slim_page -%>
+ 
+<% plus_form_for [Project.current, @simple_time] do |f| -%>  
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+
+  <% f.fieldset do -%>
+    <%= f.submit _('Create') %>
+  <% end -%>
+<% end -%>
+  

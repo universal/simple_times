@@ -1,0 +1,25 @@
+<% @page_title = _('SimpleTimes') -%>
+<% include_simple_times_stylesheet -%>
+<% slim_page -%>
+
+<div class="simple-times clearfix"> 
+
+  <div class="span-17 append-1">
+  
+    <%= render :partial => 'time', :collection => @simple_times %>
+
+    <% if @simple_times.empty? -%>
+      <h4 class="box centered"><%=_ 'There are no times available.' %></h4>
+    <% end -%>
+
+    <% content_footer('righted') do -%>
+      <%= will_paginate(@simple_times) %>
+    <% end if @simple_times.total_pages > 1 -%>
+
+  </div>
+
+  <div class="span-6 last">
+    <%= render :partial => 'navigation' %>
+  </div>
+
+</div>

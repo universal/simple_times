@@ -1,0 +1,14 @@
+<div class="simple-times-navigation"> 
+
+  <dl>
+    <dt><%=_ 'Navigation' -%></dt>
+    <dd><%= link_to _('Times'), project_simple_times_path(Project.current) %></dd>
+    <% unless User.current.public? -%>
+      <dd><%= link_to _('My Times'), project_simple_times_path(Project.current, params.only(:c).merge(:u => User.current)) %></dd>
+    <% end -%>
+    <% if permitted?(:simple_times, :create) -%>
+      <dd><%= link_to _('Create Time'), new_project_simple_time_path(Project.current) %></dd>
+    <% end -%>
+  </dl>
+
+</div>
