@@ -7,6 +7,7 @@ describe SimpleTimesController do
     @project = permit_access_with_current_project! :name => 'Retro', :wiki_title => 'Retro'
     @user = stub_current_user! :permitted? => true, :projects => [@project]
     @times_proxy = @project.stub_association!(:simple_times)
+    @times_proxy.stub!(:maximum)
     
     controller.stub!(:cached_user_attribute).with(:name, 'Anonymous').and_return('User Name')
     controller.stub!(:cached_user_attribute).with(:email).and_return('user@host.com')
@@ -23,10 +24,10 @@ describe SimpleTimesController do
       get :index, options.merge(:project_id => @project.to_param)
     end
     
-    # it 'should check the freshness' do
-    #   @times_proxy.should_receive(:maximum).with(:updated_at)
-    #   do_get
-    # end
+    it 'should check the freshness' do
+      @times_proxy.should_receive(:maximum).with(:updated_at)
+      do_get
+    end
     
     it 'should load the times' do
       @times_proxy.should_receive(:paginate).with(
@@ -58,6 +59,11 @@ describe SimpleTimesController do
     
     def do_get(options = {})
       get :show, options.merge(:id => '1', :project_id => @project.to_param)
+    end
+    
+    it 'should check the freshness' do
+      @simple_time.should_receive(:updated_at)
+      do_get
     end
   
     it 'should load the post' do
@@ -193,10 +199,10 @@ describe SimpleTimesController do
   
     describe 'when update is successful' do
       
-      it 'should redirect to show' do
+      it 'should redirect to index' do
         @simple_time.should_receive(:update_attributes).with({}).and_return(true)        
         do_put
-        response.should redirect_to(project_simple_time_path(@project, @simple_time))
+        response.should redirect_to(project_simple_times_path(@project))
       end
             
     end

@@ -15,10 +15,9 @@ class SimpleTimesController < ProjectAreaController
     :update  => ['edit', 'update'],
     :delete  => ['destroy']
 
-  # before_filter :check_freshness_of_index, :only => [:index]
+  before_filter :check_freshness_of_index, :only => [:index]
   before_filter :find_simple_time, :only => [:show, :comment, :edit, :update, :destroy]
-  # before_filter :check_freshness_of_post, :only => [:show]
-  # before_filter :load_categories, :only => [:index] 
+  before_filter :check_freshness_of_time, :only => [:show]
   
   def index
     @simple_times = Project.current.simple_times.paginate options_for_paginate
@@ -62,8 +61,8 @@ class SimpleTimesController < ProjectAreaController
   def update
     respond_to do |format|
       if @simple_time.update_attributes(params[:simple_time])          
-        flash[:notice] = _('Post was successfully updated.')      
-        format.html { redirect_to [Project.current, @simple_time] }
+        flash[:notice] = _('SimpleTime was successfully updated.')      
+        format.html { redirect_to project_simple_times_path(Project.current) }
       else
         format.html { render :action => "edit" }
       end
@@ -72,7 +71,7 @@ class SimpleTimesController < ProjectAreaController
 
   def destroy
     @simple_time.destroy
-    flash[:notice] = _('Post was successfully deleted.')
+    flash[:notice] = _('SimpleTime was successfully deleted.')
     
     respond_to do |format|
       format.html { redirect_to(project_simple_times_path(Project.current)) }
@@ -85,13 +84,13 @@ class SimpleTimesController < ProjectAreaController
       @simple_time = Project.current.simple_times.find params[:id], :include => [:user]     
     end
 
-    # def check_freshness_of_index
-    #   fresh_when :last_modified => Project.current.simple_times.maximum(:updated_at)
-    # end
-    # 
-    # def check_freshness_of_post
-    #   fresh_when :etag => @simple_time, :last_modified => @simple_time.updated_at 
-    # end
+    def check_freshness_of_index
+      fresh_when :last_modified => Project.current.simple_times.maximum(:updated_at)
+    end
+    
+    def check_freshness_of_time
+      fresh_when :etag => @simple_time, :last_modified => @simple_time.updated_at 
+    end
 
   private
   
